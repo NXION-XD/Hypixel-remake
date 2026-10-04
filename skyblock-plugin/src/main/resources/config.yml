@@ -1,0 +1,169 @@
+# ---------------------------------------------------------------------------
+# SkyBlock Remake — main configuration
+# Every gameplay number the balance team tunes lives here or under config/.
+# ---------------------------------------------------------------------------
+
+database:
+  # postgres | mysql
+  type: postgres
+  host: 127.0.0.1
+  port: 5432
+  name: skyblock
+  user: skyblock
+  password: "change-me"
+  pool:
+    maximum-size: 16
+    minimum-idle: 4
+    connection-timeout-ms: 10000
+    max-lifetime-ms: 1800000
+  # Prefix applied to every table name.
+  prefix: "sb_"
+  # Async writer tuning. Profiles are queued and flushed in batches so the main
+  # thread never blocks on JDBC.
+  save:
+    batch-size: 64
+    interval-seconds: 60
+    shutdown-timeout-seconds: 30
+
+cache:
+  redis:
+    enabled: false
+    host: 127.0.0.1
+    port: 6379
+    password: ""
+    database: 0
+    key-prefix: "skyblock:"
+    # TTLs in seconds
+    ttl:
+      profile: 900
+      auction-page: 60
+      bazaar: 30
+      leaderboards: 120
+
+web:
+  api:
+    enabled: true
+    host: 0.0.0.0
+    port: 8090
+    # Static admin dashboard is served from web/dist inside the jar or this path.
+    dashboard-path: "web/dist"
+    auth:
+      # Bearer token required for every /api/admin/* route. Generate with /sbadmin token.
+      token: "change-me-in-production"
+      # When true, only requests from these CIDRs are accepted at all.
+      allowed-cidrs: []
+    cors:
+      allowed-origins: ["http://localhost:5173"]
+
+economy:
+  starting-coins: 0
+  # Coins are stored as BIGINT cents to avoid floating point drift.
+  tax:
+    auction-listing-fee-percent: 1.0
+    auction-flip-tax-percent: 1.25
+    bazaar-order-tax-percent: 1.25
+    npc-sell-tax-percent: 0.0
+  auction:
+    max-listings-per-player: 40
+    default-duration-hours: 48
+    max-duration-hours: 96
+    max-bids-per-auction: 32
+  bazaar:
+    starting-stock-per-product: 64000
+    max-order-size: 1000000
+    # Price moves by this fraction of the spread per unit of imbalance.
+    elasticity: 0.00002
+    min-price-fraction: 0.25
+    max-price-multiplier: 8.0
+  trade:
+    # Both sides must confirm twice before the swap executes.
+    double-confirm: true
+  protection:
+    # Reject a transaction and flag the account when a single transfer exceeds this.
+    max-single-transfer: 10000000000
+    # Reject profiles whose coin delta per minute exceeds this without a matching source.
+    max-coins-per-minute: 500000000
+    audit-log-every-transaction: true
+
+combat:
+  base:
+    health: 100
+    crit-chance: 30
+    crit-damage: 50
+  # damage = (5 + weapon) * (1 + strength/5) * crit * (1 + damagePct/100)
+  base-flat-damage: 5
+  strength-divisor: 5
+  defense-divisor: 100
+  regen:
+    health-per-second-percent: 1.5
+    mana-per-second-percent: 2.0
+  ability:
+    intelligence-divisor: 100
+
+skills:
+  # XP is multiplied by (1 + wisdom/100) before it is awarded.
+  wisdom-cap-percent: 200
+  announce-level-up: true
+  broadcast-milestones: [25, 50, 60]
+
+islands:
+  default-size: 5
+  max-size: 22
+  upgrade-cost-base: 1000000
+  upgrade-cost-multiplier: 3.2
+  minion-slots-base: 5
+  minion-slots-max: 30
+  # Islands with no visit for this many days are archived (never deleted).
+  archive-after-days: 90
+
+minions:
+  offline-progress-hours: 48
+  fuel-multiplier-default: 1.0
+
+dungeons:
+  max-party-size: 5
+  entry-cost-per-floor:
+    1: 0
+    2: 0
+    3: 100
+    4: 500
+    5: 2500
+    6: 6000
+    7: 15000
+  score:
+    exploration-per-room: 4
+    secret-value: 4
+    miniboss-value: 14
+    boss-value: 30
+    speed-bonus-cap: 30
+  time-limit-seconds: 1800
+
+farming:
+  contest:
+    # Jacob's-style contests: three crops, twenty minutes.
+    duration-minutes: 20
+    medals:
+      gold-percent: 0.05
+      silver-percent: 0.15
+      bronze-percent: 0.30
+
+fishing:
+  base-catch-seconds: 12
+  sea-creature-base-chance-percent: 20
+
+mining:
+  commissions:
+    per-day: 10
+    reward-coins-base: 2000
+    reward-powder-base: 500
+  forge:
+    slots-base: 2
+    slots-max: 5
+  powder:
+    mithril-per-commission: 500
+    gemstone-per-commission: 250
+
+moderation:
+  log-chat: true
+  log-commands: true
+  log-ips: false
