@@ -1,0 +1,129 @@
+name: SkyBlock
+version: '${project.version}'
+main: com.corot2b.skyblock.plugin.SkyBlockPlugin
+api-version: '1.21'
+author: corot2b
+description: A complete SkyBlock experience for Paper/Purpur 1.21.9+
+website: https://corot2b.com
+folia-supported: false
+
+libraries:
+  - org.slf4j:slf4j-api:2.0.16
+
+commands:
+  skyblock:
+    description: Opens the SkyBlock menu
+    aliases: [sb, sky]
+    permission: skyblock.menu
+  skills:
+    description: Opens your skill overview
+    permission: skyblock.skills
+  collections:
+    description: Opens your collection log
+    permission: skyblock.collections
+  quests:
+    description: Opens your quest log
+    permission: skyblock.quests
+  pets:
+    description: Opens your pet menu
+    permission: skyblock.pets
+  wardrobe:
+    description: Opens your wardrobe
+    permission: skyblock.wardrobe
+  accessories:
+    description: Opens your accessory bag
+    permission: skyblock.accessories
+  ah:
+    description: Auction house
+    aliases: [auction]
+    permission: skyblock.auction
+  bz:
+    description: Bazaar marketplace
+    aliases: [bazaar]
+    permission: skyblock.bazaar
+  trade:
+    description: Trade with another player
+    usage: /trade <player>
+    permission: skyblock.trade
+  is:
+    description: Island commands
+    aliases: [island]
+    usage: /is <home|warp|invite|kick|coop|upgrade|settings>
+    permission: skyblock.island
+  warp:
+    description: Fast travel
+    usage: /warp <destination>
+    permission: skyblock.warp
+  dungeons:
+    description: Dungeon finder
+    aliases: [dungeon]
+    permission: skyblock.dungeons
+  party:
+    description: Party management
+    usage: /party <create|invite|accept|leave|list|warp>
+    permission: skyblock.party
+  crafting:
+    description: Portable crafting grid
+    permission: skyblock.crafting
+  enchant:
+    description: Portable enchanting table
+    permission: skyblock.enchant
+  anvil:
+    description: Portable anvil
+    permission: skyblock.anvil
+  echest:
+    description: Portable ender chest
+    permission: skyblock.echest
+  storage:
+    description: Island storage
+    permission: skyblock.storage
+  minions:
+    description: Your minion overview
+    permission: skyblock.minions
+  fishing:
+    description: Fishing log and sea creatures
+    permission: skyblock.fishing
+  commissions:
+    description: Dwarven commissions
+    permission: skyblock.commissions
+  forge:
+    description: The Forge
+    permission: skyblock.forge
+  skillsadmin:
+    description: Staff skill tools
+    permission: skyblock.admin.skills
+  sbadmin:
+    description: Staff administration
+    aliases: [skyadmin]
+    permission: skyblock.admin
+
+permissions:
+  skyblock.menu: { description: Open the SkyBlock menu, default: true }
+  skyblock.skills: { description: Skill overview, default: true }
+  skyblock.collections: { description: Collections, default: true }
+  skyblock.quests: { description: Quest log, default: true }
+  skyblock.pets: { description: Pets, default: true }
+  skyblock.wardrobe: { description: Wardrobe, default: true }
+  skyblock.accessories: { description: Accessory bag, default: true }
+  skyblock.auction: { description: Auction house, default: true }
+  skyblock.bazaar: { description: Bazaar, default: true }
+  skyblock.trade: { description: Trading, default: true }
+  skyblock.island: { description: Island commands, default: true }
+  skyblock.warp: { description: Fast travel, default: true }
+  skyblock.dungeons: { description: Dungeon finder, default: true }
+  skyblock.party: { description: Parties, default: true }
+  skyblock.crafting: { description: Portable crafting, default: true }
+  skyblock.enchant: { description: Portable enchanting, default: true }
+  skyblock.anvil: { description: Portable anvil, default: true }
+  skyblock.echest: { description: Portable ender chest, default: true }
+  skyblock.storage: { description: Island storage, default: true }
+  skyblock.minions: { description: Minion overview, default: true }
+  skyblock.fishing: { description: Fishing log, default: true }
+  skyblock.commissions: { description: Commissions, default: true }
+  skyblock.forge: { description: The Forge, default: true }
+  skyblock.admin: { description: All staff tools, default: op }
+  skyblock.admin.skills: { description: Staff skill tools, default: op }
+  skyblock.admin.give: { description: Give items, default: op }
+  skyblock.admin.economy: { description: Economy overrides, default: op }
+  skyblock.admin.bypass: { description: Bypass island protection, default: op }
+  skyblock.staff.moderation: { description: Mute/ban tools, default: op }
